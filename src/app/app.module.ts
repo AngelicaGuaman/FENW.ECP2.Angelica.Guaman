@@ -10,6 +10,7 @@ import { ReservaComponent } from './components/reserva/reserva.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { MenuComponent } from './menu/menu.component';
+import { ServiciosComponent } from './components/servicios/servicios.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MenuComponent } from './menu/menu.component';
     ReservaComponent,
     LoginComponent,
     RegistroComponent,
-    MenuComponent
+    MenuComponent,
+    ServiciosComponent
   ],
   imports: [
     BrowserModule,
