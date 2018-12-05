@@ -30,12 +30,9 @@ export class AuthService {
 
   }
 
+  doLogin(name: string, psw: string) {
 
-  doLoginUser(name:
-                string, psw:
-                string) {
-
-    this.http.get(this.baseurl + '/users/login?username=' + name + '&password=' + psw,
+    return this.http.get(this.baseurl + '/users/login?username=' + name + '&password=' + psw,
       {
         observe:
           'response'
@@ -43,38 +40,12 @@ export class AuthService {
 
   }
 
-
-  setUser(user): void {
-
-    let userString = JSON.stringify(user);
-    sessionStorage.setItem('currentUser', userString);
-
-  }
-
-
-  getCurrentUser() {
-
-    let userString = sessionStorage.getItem('currentUser');
-    let user = null;
-
-
-    if (userString !== undefined && userString != null) {
-      let user = JSON.parse(userString);
-    }
-
-    return user;
-  }
-
-  setToken(token): void {
-    sessionStorage.setItem('accessToken', token);
-  }
-
-  getToken() {
-    sessionStorage.getItem('accessToken');
+  checkUser(username: string) {
+    return this.http.get(this.baseurl + '/users/' + username);
   }
 
   doLogout() {
-    sessionStorage.removeItem('currentUser');
-    sessionStorage.removeItem('accessToken');
+    /*sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem('accessToken');*/
   }
 }
