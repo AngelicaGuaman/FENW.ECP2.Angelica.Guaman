@@ -1,34 +1,34 @@
 <div class="img-background">
   <div class="border border-success rounded col-md-8 offset-md-2">
     <h3>Nuevo Registro</h3>
-    <form [formGroup]="sigInForm" (submit)="onLogin(sigInForm)">
+    <form [formGroup]="form" (submit)="onSignIn(form)">
       <div class="form-group">
         <label for="username">Usuario:<span class="text-danger">*</span></label>
-        <input type="text" class="form-control" id="username" placeholder="Introduce el usuario"/>
+        <input type="text" formControlName="username" (blur)="checkUser(form.value.username)" class="form-control" id="username" placeholder="Introduce el usuario"/>
       </div>
 
       <div class="form-group">
         <label for="email">Correo:<span class="text-danger">*</span></label>
-        <input type="email" class="form-control" id="email" placeholder="example@example.com"/>
+        <input type="email" formControlName="email" class="form-control" id="email" placeholder="example@example.com"/>
       </div>
 
       <div class="form-group">
         <label for="password">Clave:<span class="text-danger">*</span></label>
-        <input type="password" class="form-control" id="password" placeholder="Introduce la contraseña"/>
+        <input type="password" formControlName="password" class="form-control" id="password" placeholder="Introduce la contraseña"/>
       </div>
 
       <div class="form-group">
         <label for="repeatPassword">Repite la clave:<span class="text-danger">*</span></label>
-        <input type="password" class="form-control" id="repeatPassword" placeholder="Repite la contraseña"/>
+        <input type="password" formControlName="repeatPassword" class="form-control" id="repeatPassword" placeholder="Repite la contraseña"/>
       </div>
 
       <div class="form-group">
         <label for="birthdate">Fecha de nacimiento</label>
-        <input type="date" class="form-control" id="birthdate" placeholder="Fecha de nacimiento"/>
+        <input type="date" formControlName="birthdate" class="form-control" id="birthdate" placeholder="Fecha de nacimiento"/>
       </div>
 
       <div class="text-center">
-        <button type="button" id="btnRegistro" class="btn btn-primary">Crear usuario</button>
+        <button type="submit" [disabled]="form.invalid" id="btnRegistro" class="btn btn-primary">Crear usuario</button>
       </div>
     </form>
   </div>
