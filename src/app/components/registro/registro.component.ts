@@ -35,40 +35,34 @@ export class RegistroComponent implements OnInit {
 
   onSignIn(form: FormGroup) {
 
-    if (form.get('username').hasError('required') ||
-      form.get('email').hasError('required') ||
-      form.get('password').hasError('required') ||
-      form.get('repeatPassword').hasError('required') ||
-      form.value.password !== form.value.repeatPassword) {
-      this.showError = true;
-    } else {
-      const birthdate = new Date(form.value.birthdate);
+    const birthdate = new Date(form.value.birthdate);
 
-      this.user.username = form.value.username;
-      this.user.email = form.value.email;
-      this.user.password = form.value.password;
-      this.user.repeatPassword = form.value.repeatPassword;
-      this.user.birthdate = birthdate.getTime();
+    this.user.username = form.value.username;
+    this.user.email = form.value.email;
+    this.user.password = form.value.password;
+    this.user.repeatPassword = form.value.repeatPassword;
+    this.user.birthdate = birthdate.getTime();
 
-      this.authService.registerUser(this.user).subscribe(
-        response => {
-          this.toast.success('Se ha creado correctamente el usuario ' + this.user.username, 'Información');
-          this.router.navigate(['/login']);
-        },
-        error => {
-          this.toast.error('No se ha podido realizar la petición', 'Error', {
-            timeOut: 3000
-          });
+    this.authService.registerUser(this.user).subscribe(
+      response => {
+        this.toast.success('Se ha creado correctamente el usuario ' + this.user.username, 'Información');
+        this.router.navigate(['/login']);
+      },
+      error => {
+        this.toast.error('No se ha podido realizar la petición', 'Error', {
+          timeOut: 3000
         });
-    }
+      });
   }
 
   checkUser(username: string) {
+    this.showError = false;
     this.authService.checkUser(username).subscribe(
       response => {
         this.toast.error('El usuario ya está registrado', 'Error', {
           timeOut: 3000
         });
+        this.showError = true;
       });
   }
 
