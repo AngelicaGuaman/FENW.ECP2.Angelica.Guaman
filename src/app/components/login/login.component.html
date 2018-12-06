@@ -6,12 +6,18 @@
         <input formControlName="username" type="text" class="form-control"
                [ngClass]="{'border-danger': !form.controls['username'].valid}" id="username"
                placeholder="Introduce el usuario">
+        <small class="form-text text-danger text-left"
+               *ngIf="form.get('username').touched && form.get('username').hasError('required')">Por favor introduzca un usuario
+        </small>
       </div>
       <div class="form-group">
         <label for="password">Clave:<span class="text-danger">*</span></label>
         <input formControlName="password" type="password" class="form-control"
                [ngClass]="{'border-danger': !form.controls['password'].valid}" id="password"
                placeholder="Introduce la contraseña">
+        <small class="form-text text-danger text-left"
+               *ngIf="form.get('password').touched && form.get('password').hasError('required')">Por favor introduzca la contraseña
+        </small>
       </div>
       <div *ngIf="showError" class="text-danger">
         Los campos con * son obligatorios
