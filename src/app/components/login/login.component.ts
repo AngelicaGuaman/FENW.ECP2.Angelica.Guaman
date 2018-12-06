@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.formBuilder.group({
       username: new FormControl('', Validators.compose([Validators.required, Validators.minLength(1)])),
-      password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(5)]))
+      password: new FormControl('', Validators.compose([Validators.required, Validators.minLength(1)]))
     });
   }
 
@@ -38,6 +38,7 @@ export class LoginComponent implements OnInit {
         response => {
           sessionStorage.setItem('accessToken', response.headers.get('Authorization'));
           sessionStorage.setItem('currentUser', username);
+          this.toast.success('Bienvenido ' + username, 'Información');
           this.router.navigate(['/']);
 
         },

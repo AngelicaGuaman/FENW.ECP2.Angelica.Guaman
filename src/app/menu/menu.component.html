@@ -24,16 +24,16 @@
       <li id="panelInstalaciones" class="nav-item">
         <a routerLink="/instalaciones" routerLinkActive="active" class="nav-link">Instalaciones</a>
       </li>
-      <li id="panelReserva" class="invisible nav-item">
+      <li id="panelReserva" [ngClass]="{'invisible': !isLogin()}" class="invisible nav-item">
         <a routerLink="/reservas" routerLinkActive="active" class="nav-link">Reservar</a>
       </li>
     </ul>
 
     <ul class="nav justify-content-end">
       <li id="panelRegistro" class="nav-item"><a routerLink="/registro" routerLinkActive="active" class="nav-link"><i class='fas'>&#xf007;</i> Registro</a></li>
-      <li id="panelLogin" class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link"> <i class='fas fa-sign-in-alt'></i> Login</a>
+      <li id="panelLogin" [ngClass]="{'invisible': isLogin()}" class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link"> <i class='fas fa-sign-in-alt'></i> Login</a>
       </li>
-      <li id="panelLogout" class="invisible nav-item"><a routerLink="/registro" routerLinkActive="active" class="nav-link"> <i class="fas fa-sign-out-alt"></i>
+      <li id="panelLogout" [ngClass]="{'invisible': !isLogin()}" class="invisible nav-item" (click)="doLogout()"><a routerLink="/" routerLinkActive="active" class="nav-link"> <i class="fas fa-sign-out-alt"></i>
         Logout</a></li>
     </ul>
   </div>

@@ -16,16 +16,8 @@ export class AuthService {
 
     return this.http.post(this.baseurl + '/users', user,
       {
-
-        headers:
-          new HttpHeaders({
-            'Content-Type':
-              'application/json'
-          }),
-
-        observe:
-          'response'
-
+        headers: new HttpHeaders({'Content-Type': 'application/json'}),
+        observe: 'response'
       });
 
   }
@@ -47,4 +39,10 @@ export class AuthService {
     sessionStorage.removeItem('currentUser');
     sessionStorage.removeItem('accessToken');
   }
+
+  isLogin() {
+    return sessionStorage.getItem('currentUser') &&
+      sessionStorage.getItem('accessToken');
+  }
+
 }
