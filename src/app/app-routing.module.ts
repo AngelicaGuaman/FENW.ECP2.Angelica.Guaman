@@ -14,7 +14,7 @@ const routes: Routes = [
   {path: 'instalaciones', component: InstalacionesComponent, pathMatch: 'full'},
   {path: 'registro', component: RegistroComponent, pathMatch: 'full'},
   {path: 'servicios', component: ServiciosComponent, pathMatch: 'full'},
-  {path: 'reserva', component: ReservaComponent, pathMatch: 'full'}
+  {path: 'reservas', component: ReservaComponent, pathMatch: 'full'}
 ];
 
 @NgModule({

@@ -19,6 +19,10 @@ import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatFormFieldModule, MatNativeDateModule, MatInputModule} from '@angular/material';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +41,11 @@ import {ToastrModule} from 'ngx-toastr';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatDialogModule,
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()

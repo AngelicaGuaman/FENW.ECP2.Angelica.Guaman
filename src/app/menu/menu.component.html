@@ -1,40 +1,42 @@
-<nav class="navbar navbar-expand-lg navbar-light">
-  <a id="logo" routerLink="/" routerLinkActive="active" class="navbar-brand">
-    <img src="./assets/img/upmlogo.jpg" class="img-logo rounded" alt="Logo UPM"/>
-    <span>Pádel U.P.M</span>
-  </a>
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a id="logo" routerLink="/" routerLinkActive="active" class="navbar-brand">
+      <img src="./assets/img/upmlogo.jpg" class="img-logo rounded" alt="Logo UPM"/>
+      <span>Pádel U.P.M</span>
+    </a>
 
-  <button class="navbar-toggler" type="button" data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li id="panelInicio" class="nav-item">
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li id="panelServicios" class="nav-item">
-        <a routerLink="/servicios" routerLinkActive="active" class="nav-link">Servicios</a>
-      </li>
-      <li id="panelInstalaciones" class="nav-item">
-        <a routerLink="/instalaciones" routerLinkActive="active" class="nav-link">Instalaciones</a>
-      </li>
-      <li id="panelReserva" [ngClass]="{'invisible': !isLogin()}" class="invisible nav-item">
-        <a routerLink="/reservas" routerLinkActive="active" class="nav-link">Reservar</a>
-      </li>
-    </ul>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li id="panelInicio" class="nav-item">
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li id="panelServicios" class="nav-item">
+          <a routerLink="/servicios" routerLinkActive="active" class="nav-link">Servicios</a>
+        </li>
+        <li id="panelInstalaciones" class="nav-item">
+          <a routerLink="/instalaciones" routerLinkActive="active" class="nav-link">Instalaciones</a>
+        </li>
+        <li id="panelReserva" [ngClass]="{'invisible': !isLogin()}" class="invisible nav-item">
+          <a routerLink="/reservas" routerLinkActive="active" class="nav-link">Reservar</a>
+        </li>
+      </ul>
 
-    <ul class="nav justify-content-end">
-      <li id="panelRegistro" class="nav-item"><a routerLink="/registro" routerLinkActive="active" class="nav-link"><i class='fas'>&#xf007;</i> Registro</a></li>
-      <li id="panelLogin" [ngClass]="{'invisible': isLogin()}" class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link"> <i class='fas fa-sign-in-alt'></i> Login</a>
-      </li>
-      <li id="panelLogout" [ngClass]="{'invisible': !isLogin()}" class="invisible nav-item" (click)="doLogout()"><a routerLink="/" routerLinkActive="active" class="nav-link"> <i class="fas fa-sign-out-alt"></i>
-        Logout</a></li>
-    </ul>
-  </div>
-</nav>
+      <ul class="nav justify-content-end">
+        <li id="panelRegistro" class="nav-item"><a routerLink="/registro" routerLinkActive="active" class="nav-link"><i class='fas'>&#xf007;</i> Registro</a></li>
+        <li id="panelLogin" [ngClass]="{'invisible': isLogin()}" class="nav-item"><a routerLink="/login" routerLinkActive="active" class="nav-link"> <i class='fas fa-sign-in-alt'></i> Login</a>
+        </li>
+        <li id="panelLogout" [ngClass]="{'invisible': !isLogin()}" class="invisible nav-item" (click)="doLogout()"><a routerLink="/" routerLinkActive="active" class="nav-link"> <i class="fas fa-sign-out-alt"></i>
+          Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
