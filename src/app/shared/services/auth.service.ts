@@ -31,7 +31,6 @@ export class AuthService {
   }
 
   doLogin(name: string, psw: string) {
-
     return this.http.get(this.baseurl + '/users/login?username=' + name + '&password=' + psw,
       {
         observe:
@@ -45,7 +44,7 @@ export class AuthService {
   }
 
   doLogout() {
-    /*sessionStorage.removeItem('currentUser');
-    sessionStorage.removeItem('accessToken');*/
+    sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem('accessToken');
   }
 }
