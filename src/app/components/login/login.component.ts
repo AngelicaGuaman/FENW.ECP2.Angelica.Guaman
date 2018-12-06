@@ -14,7 +14,6 @@ import {ToastrService} from 'ngx-toastr';
 export class LoginComponent implements OnInit {
 
   public form: FormGroup;
-  public showError = false;
 
   constructor(private formBuilder: FormBuilder, private router: Router, private authService: AuthService, private toast: ToastrService) {
   }
@@ -30,23 +29,18 @@ export class LoginComponent implements OnInit {
     const username = form.value.username;
     const password = form.value.password;
 
-    if (form.get('username').hasError('required') ||
-      form.get('password').hasError('required')) {
-      this.showError = true;
-    } else {
-      this.authService.doLogin(username, password).subscribe(
-        response => {
-          sessionStorage.setItem('accessToken', response.headers.get('Authorization'));
-          sessionStorage.setItem('currentUser', username);
-          this.toast.success('Bienvenido ' + username, 'Información');
-          this.router.navigate(['/']);
+    this.authService.doLogin(username, password).subscribe(
+      response => {
+        sessionStorage.setItem('accessToken', response.headers.get('Authorization'));
+        sessionStorage.setItem('currentUser', username);
+        this.toast.success('Bienvenido ' + username, 'Información');
+        this.router.navigate(['/']);
 
-        },
-        error => {
-          this.toast.error('Usuario y/o contraseña incorrectos', 'Error', {
-            timeOut: 3000
-          });
+      },
+      error => {
+        this.toast.error('Usuario y/o contraseña incorrectos', 'Error', {
+          timeOut: 3000
         });
-    }
+      });
   }
 }
