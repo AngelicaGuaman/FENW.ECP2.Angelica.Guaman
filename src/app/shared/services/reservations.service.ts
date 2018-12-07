@@ -18,8 +18,9 @@ export class ReservationsService {
     });
   }
 
-  getAllReservationsByAllUsersInASpecificDate(dateNumbre: number) {
-    return this.http.get<Reservation[]>(this.baseurl + '/' + dateNumbre, {
+  getAllReservationsByAllUsersInASpecificDate(dateNumber: number) {
+    console.log(dateNumber);
+    return this.http.get<Reservation[]>(this.baseurl + '/' + dateNumber, {
       headers: new HttpHeaders({'Authorization': sessionStorage.getItem('accessToken')})
     });
   }

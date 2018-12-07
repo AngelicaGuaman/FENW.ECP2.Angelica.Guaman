@@ -23,6 +23,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatFormFieldModule, MatNativeDateModule, MatInputModule} from '@angular/material';
 
+import {MyDatePickerModule} from 'mydatepicker';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,7 @@ import {MatFormFieldModule, MatNativeDateModule, MatInputModule} from '@angular/
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
+    MyDatePickerModule,
     MatDatepickerModule,
     MatDialogModule,
     CommonModule,
