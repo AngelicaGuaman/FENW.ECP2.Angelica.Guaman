@@ -21,6 +21,10 @@
     padding: 20px;
 }
 
+.row {
+    padding-bottom: 30px;
+}
+
 .card-header {
     background-color: #eef9fa;
 }

@@ -1,7 +1,7 @@
 <div class="container">
+  <h2 class="text-center">Reserva tu pista de pádel</h2>
 
   <div class="row">
-    <h2 class="text-center">Reserva tu pista de pádel</h2>
     <div class="col-md-8 offset-2">
       <form>
         <fieldset class="border">
@@ -15,77 +15,75 @@
     </div>
   </div>
 
-  <div class="container">
-    <h2 class="text-center">Reservas realizadas por todos los usuarios en la fecha seleccionada</h2>
-
-    <div class="row">
-      <div class="col-md-3">
-        <div class="card">
-          <div class="text-center card-header">Pista 1</div>
-          <div class="card-body">
-            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[0])"
-                class="list-group list-group-flush">
-              <li *ngFor="let hour of allReservationsByCourtUnavailable[0].hours"
-                  class="text-center list-group-item">{{hour}}</li>
-            </ul>
-            <label class="text-center text-danger"
-                   *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[0])">No
-              hay reservas!!</label>
-          </div>
+  <div class="row">
+    <h3 class="col-md-12 text-center">Reservas realizadas por todos los usuarios en la fecha seleccionada</h3>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="text-center card-header">Pista 1</div>
+        <div class="card-body">
+          <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[0])"
+              class="list-group list-group-flush">
+            <li *ngFor="let hour of allReservationsByCourtUnavailable[0].hours"
+                class="text-center list-group-item">{{hour}}</li>
+          </ul>
+          <label class="text-center text-danger"
+                 *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[0])">No
+            hay reservas!!</label>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-3">
-        <div class="card">
-          <div class="text-center card-header">Pista 2</div>
-          <div class="card-body">
-            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[1])"
-                class="list-group list-group-flush">
-              <li *ngFor="let hour of allReservationsByCourtUnavailable[1].hours"
-                  class="text-center list-group-item">{{hour}}</li>
-            </ul>
-            <label class="text-center text-danger"
-                   *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[1])">No
-              hay reservas!!</label>
-          </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="text-center card-header">Pista 2</div>
+        <div class="card-body">
+          <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[1])"
+              class="list-group list-group-flush">
+            <li *ngFor="let hour of allReservationsByCourtUnavailable[1].hours"
+                class="text-center list-group-item">{{hour}}</li>
+          </ul>
+          <label class="text-center text-danger"
+                 *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[1])">No
+            hay reservas!!</label>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-3">
-        <div class="card">
-          <div class="text-center card-header">Pista 3</div>
-          <div class="card-body">
-            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[2])"
-                class="list-group list-group-flush">
-              <li *ngFor="let hour of allReservationsByCourtUnavailable[2].hours"
-                  class="text-center list-group-item">{{hour}}</li>
-            </ul>
-            <label class="text-center text-danger"
-                   *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[2])">No
-              hay reservas!!</label>
-          </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="text-center card-header">Pista 3</div>
+        <div class="card-body">
+          <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[2])"
+              class="list-group list-group-flush">
+            <li *ngFor="let hour of allReservationsByCourtUnavailable[2].hours"
+                class="text-center list-group-item">{{hour}}</li>
+          </ul>
+          <label class="text-center text-danger"
+                 *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[2])">No
+            hay reservas!!</label>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-3">
-        <div class="card">
-          <div class="text-center card-header">Pista 4</div>
-          <div class="card-body">
-            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[3])"
-                class="list-group list-group-flush">
-              <li *ngFor="let hour of allReservationsByCourtUnavailable[3].hours"
-                  class="text-center list-group-item">{{hour}}</li>
-            </ul>
-            <label class="text-center text-danger"
-                   *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[3])">No
-              hay reservas!!</label>
-          </div>
+    <div class="col-md-3">
+      <div class="card">
+        <div class="text-center card-header">Pista 4</div>
+        <div class="card-body">
+          <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[3])"
+              class="list-group list-group-flush">
+            <li *ngFor="let hour of allReservationsByCourtUnavailable[3].hours"
+                class="text-center list-group-item">{{hour}}</li>
+          </ul>
+          <label class="text-center text-danger"
+                 *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[3])">No
+            hay reservas!!</label>
         </div>
       </div>
     </div>
   </div>
 
   <div class="row">
+    <h3 class="col-md-12 text-center">Gestión de Reservas</h3>
     <div class="col-md-6">
       <form>
         <fieldset class="border">
