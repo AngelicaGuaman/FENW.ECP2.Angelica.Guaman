@@ -21,6 +21,10 @@
     padding: 20px;
 }
 
+.card-header {
+    background-color: #eef9fa;
+}
+
 .img-background{
     background-image: url(../img/img-background.jpeg);
     background-size: cover;

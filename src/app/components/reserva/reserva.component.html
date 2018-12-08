@@ -1,21 +1,22 @@
 <div class="container">
 
-  <div>
-    <h2 class="text-center">Reservas</h2>
+  <div class="row">
+    <h2 class="text-center">Reserva tu pista de pádel</h2>
     <div class="col-md-8 offset-2">
-      <form class="border">
-        <label>Seleccione una fecha: </label>
-        <my-date-picker name="model" [options]="myDatePickerOptions"
-                        [(ngModel)]="mydate" required></my-date-picker>
-        <button (click)="getAllReservations()">Buscar</button>
+      <form>
+        <fieldset class="border">
+          <legend>Fecha para gestionar una reserva</legend>
+          <label>Seleccione una fecha:<span class="text-danger">*</span></label>
+          <my-date-picker name="model" [options]="myDatePickerOptions"
+                          [(ngModel)]="mydate" required></my-date-picker>
+          <button class="btn btn-primary" (click)="getAllReservations()">Buscar</button>
+        </fieldset>
       </form>
     </div>
   </div>
 
-  <div>
-    <div class="col-md-12">
-      <h2 class="text-center">Reservas realizadas por todos los usuarios en la fecha seleccionada</h2>
-    </div>
+  <div class="container">
+    <h2 class="text-center">Reservas realizadas por todos los usuarios en la fecha seleccionada</h2>
 
     <div class="row">
       <div class="col-md-3">
@@ -114,18 +115,24 @@
       <fieldset class="border">
         <legend>Realizar reservas</legend>
         <div>
-          <label for="court">Seleccione la pista: </label>
+          <label for="court">Pista: </label>
           <select class="form-control" id="court" (change)="selectHours($event.target.value)">
+            <option>Seleccione una pista</option>
             <option *ngFor="let court of allReservationsByCourtAvailable" class="text-center">{{court.id}}</option>
           </select>
         </div>
 
         <div>
-          <label>Seleccione la hora:</label>
-          <select *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length > 0" name="hourSelected"
-                  [(ngModel)]="hourSelected" (change)="selectHour($event.target.value)" class="form-control">
-            <option *ngFor="let hour of courtSelected.hours">{{hour}}</option>
-          </select>
+          <div *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length > 0">
+            <label>Hora: </label>
+            <select name="hourSelected"
+                    [(ngModel)]="hourSelected" class="form-control">
+              <option>Seleccione una hora</option>
+              <option *ngFor="let hour of courtSelected.hours">{{hour}}</option>
+            </select>
+          </div>
+
+          <label *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length === 0" class="text-center text-danger"> No hay horas disponibles</label>
         </div>
         <button class="btn btn-primary" (click)="doReservation()">Reservar</button>
       </fieldset>
