@@ -118,8 +118,23 @@ export class ReservaComponent implements OnInit {
 
     dateFormat.setHours(parseInt(this.hourSelected));
     this.reservation.doReservation(this.courtSelected.id, dateFormat.getTime()).subscribe(
-      error => {
-        this.toast.error('No se ha podido realizar la reserva', 'Reserva');
+      response => {
+        if (response) {
+          this.getAllReservationsByLoggedUser();
+          this.getAllReservations();
+          this.selectHours(this.allReservationsByCourtAvailable[0]);
+          this.toast.success('Se ha creado correctamente la reserva', 'Reserva');
+        }
+      }, error => {
+        if (error.status === 400) {
+          this.toast.error('Error en el envío de datos', 'Reserva');
+        } else if (error === 401) {
+          this.toast.error('Error en el token enviado', 'Reserva');
+        } else if (error.status === 409) {
+          this.toast.error('Error en el número máximo de reservas realizadas', 'Reserva');
+        } else if (error.status === 500) {
+          this.toast.error('Error en el servidor', 'Reserva');
+        }
       });
   }
 
