@@ -19,14 +19,13 @@ export class ReservationsService {
   }
 
   getAllReservationsByAllUsersInASpecificDate(dateNumber: number) {
-    console.log(dateNumber);
     return this.http.get<Reservation[]>(this.baseurl + '/' + dateNumber, {
       headers: new HttpHeaders({'Authorization': sessionStorage.getItem('accessToken')})
     });
   }
 
   doReservation(courtId: number, rsvdateTime: number) {
-    return this.http.post(this.baseurl, {courtId: courtId, rsvdateTime: rsvdateTime}, {
+    return this.http.post(this.baseurl, {courtid: courtId, rsvdatetime: rsvdateTime}, {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Authorization': sessionStorage.getItem('accessToken')}),
       observe: 'response'
     });

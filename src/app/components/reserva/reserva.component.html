@@ -3,109 +3,116 @@
   <div>
     <h2 class="text-center">Reservas</h2>
     <div class="col-md-8 offset-2">
-      <label>Seleccione una fecha: </label>
-      <my-date-picker name="mydate" [options]="myDatePickerOptions" (change)="getAllReservations()"
-                      [(ngModel)]="mydate" required></my-date-picker>
-      <!--<button (click)="getAllReservations()">Buscar</button>-->
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-3">
-      <div class="card" style="width: 18rem;">
-        <div class="text-center card-header">Pista 1</div>
-        <div class="card-body">
-          <!--<ul *ngIf="allReservationsByCourt[0].hours.length > 0" class="list-group list-group-flush">
-            <li *ngFor="let hour of allReservationsByCourt[0].hours" class="list-group-item">{{hour}}</li>
-          </ul>
-          <label class="text-center text-danger" *ngIf="allReservationsByCourt[0].hours.length == 0">No hay reservas!!</label>-->
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="card" style="width: 18rem;">
-        <div class="text-center card-header">Pista 2</div>
-        <div class="card-body">
-          <!--<ul *ngIf="allReservationsByCourt[1].hours.length > 0" class="list-group list-group-flush">
-            <li *ngFor="let hour of allReservationsByCourt[1].hours" class="list-group-item">{{hour}}</li>
-          </ul>
-          <label class="text-center text-danger" *ngIf="allReservationsByCourt[1].hours.length == 0">No hay reservas!!</label>-->
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="card" style="width: 18rem;">
-        <div class="text-center card-header">Pista 3</div>
-        <div class="card-body">
-          <!--<ul *ngIf="allReservationsByCourt[2].hours.length > 0" class="list-group list-group-flush">
-            <li *ngFor="let hour of allReservationsByCourt[2].hours" class="list-group-item">{{hour}}</li>
-          </ul>
-          <label class="text-center text-danger" *ngIf="allReservationsByCourt[2].hours.length == 0">No hay reservas!!</label>-->
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-3">
-      <div class="card" style="width: 18rem;">
-        <div class="text-center card-header">Pista 4</div>
-        <div class="card-body">
-          <!--<ul *ngIf="allReservationsByCourt[3].hours.length > 0" class="list-group list-group-flush">
-            <li *ngFor="let hour of allReservationsByCourt[3].hours" class="list-group-item">{{hour}}</li>
-          </ul>
-          <label class="text-center text-danger" *ngIf="allReservationsByCourt[3].hours.length == 0">No hay reservas!!</label>-->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-8 offset-2">
-      <h3 class="text-center">Realizar reservas</h3>
-
-      <form>
-        <div class="form-group">
-          <label for="court">Seleccione la pista: </label>
-          <select multiple class="form-control" id="court">
-            <option *ngFor="let court of allReservationsByCourt" [(ngModel)]="courtSelected">{{court.id}}</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="hour">Seleccione la hora:</label>
-          <select multiple class="form-control" id="hour">
-            <option *ngFor="let hour of courtSelected.hours" [(ngModel)]="hourSelected">{{hour}}</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" (click)="doReservation()">Reservar</button>
+      <form class="border">
+        <label>Seleccione una fecha: </label>
+        <my-date-picker name="model" [options]="myDatePickerOptions"
+                        [(ngModel)]="mydate" required></my-date-picker>
+        <button (click)="getAllReservations()">Buscar</button>
       </form>
-
     </div>
   </div>
 
-  <div class="row col-md-12">
-    <div class="col-md-6">
-      <h2 class="text-center">Mis Reservas</h2>
-      <table class="table" *ngIf="reservationsByLoggedUser.length > 0">
-        <thead>
-        <tr>
-          <th scope="col">Pista</th>
-          <th scope="col">Fecha</th>
-          <th scope="col">Hora</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let reservation of reservationsByLoggedUser">
-          <th scope="row">{{reservation.courtId}}</th>
-          <td>{{reservation.rsvday}}</td>
-          <td>{{reservation.rsvtime}}</td>
-        </tr>
-        </tbody>
-      </table>
-      <label class="text-center text-danger" *ngIf="reservationsByLoggedUser.length == 0">No hay reservas!!</label>
+  <div>
+    <div class="col-md-12">
+      <h2 class="text-center">Reservas realizadas por todos los usuarios en la fecha seleccionada</h2>
     </div>
 
+    <div class="row">
+      <div class="col-md-3">
+        <div class="card">
+          <div class="text-center card-header">Pista 1</div>
+          <div class="card-body">
+            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[0])" class="list-group list-group-flush">
+              <li *ngFor="let hour of allReservationsByCourtUnavailable[0].hours" class="text-center list-group-item">{{hour}}</li>
+            </ul>
+            <label class="text-center text-danger" *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[0])">No hay reservas!!</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="text-center card-header">Pista 2</div>
+          <div class="card-body">
+            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[1])" class="list-group list-group-flush">
+              <li *ngFor="let hour of allReservationsByCourtUnavailable[1].hours" class="text-center list-group-item">{{hour}}</li>
+            </ul>
+            <label class="text-center text-danger" *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[1])">No hay reservas!!</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="text-center card-header">Pista 3</div>
+          <div class="card-body">
+            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[2])" class="list-group list-group-flush">
+              <li *ngFor="let hour of allReservationsByCourtUnavailable[2].hours" class="text-center list-group-item">{{hour}}</li>
+            </ul>
+            <label class="text-center text-danger" *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[2])">No hay reservas!!</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card">
+          <div class="text-center card-header">Pista 4</div>
+          <div class="card-body">
+            <ul *ngIf="allReservationsByCourtUnavailable && isAvailable(allReservationsByCourtUnavailable[3])" class="list-group list-group-flush">
+              <li *ngFor="let hour of allReservationsByCourtUnavailable[3].hours" class="text-center list-group-item">{{hour}}</li>
+            </ul>
+            <label class="text-center text-danger" *ngIf="allReservationsByCourtUnavailable && isUnavailable(allReservationsByCourtUnavailable[3])">No hay reservas!!</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <form>
+        <fieldset>
+          <legend>Mis reservas</legend>
+          <table class="table" *ngIf="reservationsByLoggedUser.length > 0">
+            <thead>
+            <tr>
+              <th scope="col">Pista</th>
+              <th scope="col">Fecha</th>
+              <th scope="col">Hora</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let reservation of reservationsByLoggedUser">
+              <th scope="row">{{reservation.courtId}}</th>
+              <td>{{reservation.rsvday}}</td>
+              <td>{{reservation.rsvtime}}</td>
+            </tr>
+            </tbody>
+          </table>
+          <label class="text-center text-danger" *ngIf="reservationsByLoggedUser.length == 0">No hay reservas!!</label>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="col-md-6">
+      <legend>Realizar reservas</legend>
+      <div class="form-group">
+        <label for="court">Seleccione la pista: </label>
+        <select class="form-control" id="court" (change)="selectHours($event.target.value)">
+          <option *ngFor="let court of allReservationsByCourtAvailable" class="text-center">{{court.id}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Seleccione la hora:</label>
+        <select *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length > 0" name="hourSelected" [(ngModel)]="hourSelected" (change)="selectHour($event.target.value)"class="form-control">
+          <option *ngFor="let hour of courtSelected.hours">{{hour}}</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" (click)="doReservation()">Reservar</button>
+
+    </div>
   </div>
 
 </div>
+

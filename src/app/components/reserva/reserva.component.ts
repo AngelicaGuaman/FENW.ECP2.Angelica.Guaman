@@ -22,15 +22,17 @@ import {Court} from '../../shared/models/court.model';
 export class ReservaComponent implements OnInit {
   reservationsByLoggedUser: Reservation[] = [];
   allReservations: Reservation[] = [];
-  allReservationsByCourt: Court[] = [];
+
+  allReservationsByCourtAvailable: Court[] = [];
+  allReservationsByCourtUnavailable: Court[] = [];
 
   MAX_COURT = 4;
   today = new Date();
   hours = [];
   court: Court;
-  hora;
   courtSelected: Court;
   hourSelected;
+  hour;
 
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd/mm/yyyy',
@@ -51,9 +53,12 @@ export class ReservaComponent implements OnInit {
   ngOnInit() {
     this.getAllReservationsByLoggedUser();
     this.getAllReservations();
+    this.selectHours(this.allReservationsByCourtAvailable[0]);
   }
 
   getAllReservationsByLoggedUser() {
+    this.reservationsByLoggedUser = [];
+
     this.reservation.getAllReservationsByLoggedUser().subscribe(
       response => {
         if (response) {
@@ -68,30 +73,23 @@ export class ReservaComponent implements OnInit {
 
   getAllReservations() {
     this.allReservations = [];
+    this.allReservationsByCourtAvailable = [];
+    this.allReservationsByCourtUnavailable = [];
+
+    this.fillCourts();
+
     const dateFormat = new Date(this.mydate.date.year, this.mydate.date.month - 1, this.mydate.date.day);
 
     this.reservation.getAllReservationsByAllUsersInASpecificDate(dateFormat.getTime()).subscribe(
       response => {
         if (response) {
-          this.fillCourts();
           response.forEach((element) => {
             this.allReservations.push(element);
-            if (element.courtId === 1) {
-              this.hora = this.allReservationsByCourt[0].hours.indexOf(element.rsvtime);
-              this.allReservationsByCourt[0].hours.splice(this.hora, 1);
-            } else if (element.courtId === 2) {
-              this.hora = this.allReservationsByCourt[1].hours.indexOf(element.rsvtime);
-              this.allReservationsByCourt[1].hours.splice(this.hora, 1);
-            } else if (element.courtId === 3) {
-              this.hora = this.allReservationsByCourt[2].hours.indexOf(element.rsvtime);
-              this.allReservationsByCourt[2].hours.splice(this.hora, 1);
-            } else if (element.courtId === 4) {
-              this.hora = this.allReservationsByCourt[3].hours.indexOf(element.rsvtime);
-              this.allReservationsByCourt[3].hours.splice(this.hora, 1);
-            }
           });
-          console.log(this.allReservationsByCourt);
+          console.log('Todas las reservas');
           console.log(this.allReservations);
+
+          this.getReservationAvailable();
         } else {
           this.toast.error('No se ha podido recuperar los datos correctamente', 'Error');
         }
@@ -99,8 +97,6 @@ export class ReservaComponent implements OnInit {
   }
 
   fillCourts() {
-    this.allReservationsByCourt = [];
-
     for (let i = 0; i < this.MAX_COURT; i++) {
       this.hours = [];
 
@@ -111,15 +107,91 @@ export class ReservaComponent implements OnInit {
       this.court.id = Number(i + 1);
       this.court.hours = this.hours;
 
-      this.allReservationsByCourt[i] = this.court;
+      const copy = JSON.parse(JSON.stringify(this.court));
+
+      this.allReservationsByCourtAvailable.push(copy); /*todas las horas están disponibles*/
     }
   }
 
   doReservation() {
     const dateFormat = new Date(this.mydate.date.year, this.mydate.date.month - 1, this.mydate.date.day);
 
-    dateFormat.setHours(Number(this.hourSelected));
-    this.reservation.doReservation(this.courtSelected.id, dateFormat.getTime());
+    dateFormat.setHours(parseInt(this.hourSelected));
+    this.reservation.doReservation(this.courtSelected.id, dateFormat.getTime()).subscribe(
+      error => {
+        this.toast.error('No se ha podido realizar la reserva', 'Reserva');
+      });
   }
+
+  getReservationAvailable() {
+    this.hours = [];
+    for (const reservation of this.allReservations) {
+
+      if (reservation.courtId === 1) {
+        const index = this.allReservationsByCourtAvailable[0].hours.indexOf(reservation.rsvtime);
+        if (index !== -1) {
+          this.allReservationsByCourtAvailable[0].hours.splice(index, 1);
+          this.fillCourt(0, reservation.rsvtime);
+        }
+      } else if (reservation.courtId === 2) {
+        const index = this.allReservationsByCourtAvailable[1].hours.indexOf(reservation.rsvtime);
+        if (index !== -1) {
+          this.allReservationsByCourtAvailable[1].hours.splice(index, 1);
+          this.fillCourt(1, reservation.rsvtime);
+        }
+      } else if (reservation.courtId === 3) {
+        const index = this.allReservationsByCourtAvailable[2].hours.indexOf(reservation.rsvtime);
+        if (index !== -1) {
+          this.allReservationsByCourtAvailable[2].hours.splice(index, 1);
+          this.fillCourt(2, reservation.rsvtime);
+        }
+      } else if (reservation.courtId === 4) {
+        const index = this.allReservationsByCourtAvailable[3].hours.indexOf(reservation.rsvtime);
+        if (index !== -1) {
+          this.allReservationsByCourtAvailable[3].hours.splice(index, 1);
+          this.fillCourt(3, reservation.rsvtime);
+        }
+      }
+    }
+  }
+
+  fillCourt(court: number, rsvtime: string) {
+    const pista: any = {
+      id: (court + 1),
+      hours: []
+    };
+
+    if (this.allReservationsByCourtUnavailable &&
+      this.allReservationsByCourtUnavailable[court] &&
+      this.allReservationsByCourtUnavailable[court].hours) {
+      const indexAux = this.allReservationsByCourtUnavailable[court].hours.indexOf(rsvtime);
+      if (indexAux === -1) {
+        this.allReservationsByCourtUnavailable[court].hours.push(rsvtime);
+      }
+    } else {
+      pista.hours.push(rsvtime);
+      this.allReservationsByCourtUnavailable.push(pista);
+    }
+  }
+
+  isUnavailable(c: Court) {
+    return c && c.hours && c.hours.length === 0;
+  }
+
+  isAvailable(c: Court) {
+    return c && c.hours && c.hours.length > 0;
+  }
+
+  selectHours(pista) {
+    this.courtSelected = this.allReservationsByCourtAvailable[pista - 1];
+    if (this.courtSelected && this.courtSelected.hours) {
+      this.selectHour(this.courtSelected.hours[0]);
+    }
+  }
+
+  selectHour(hora) {
+    this.hourSelected = hora;
+  }
+
 }
 
