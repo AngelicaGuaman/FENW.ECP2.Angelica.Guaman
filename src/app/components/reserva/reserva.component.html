@@ -123,13 +123,11 @@
         <div class="mt-md-4">
           <div *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length > 0">
             <label>Hora: </label>
-            <select name="hourSelected"
-                    [(ngModel)]="hourSelected" class="form-control">
+            <select name="hourSelected" class="form-control" (change)="selectHour($event.target.value)">
               <option>Seleccione una hora</option>
               <option *ngFor="let hour of courtSelected.hours">{{hour}}</option>
             </select>
           </div>
-
           <label *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length === 0" class="text-center text-danger"> No hay horas disponibles</label>
         </div>
         <button class="btn btn-primary mt-md-4" (click)="doReservation()">Reservar</button>

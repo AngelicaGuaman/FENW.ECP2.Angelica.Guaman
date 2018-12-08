@@ -53,7 +53,7 @@ export class ReservaComponent implements OnInit {
   ngOnInit() {
     this.getAllReservationsByLoggedUser();
     this.getAllReservations();
-    this.selectHours(this.allReservationsByCourtAvailable[0]);
+    /*this.selectHours(this.allReservationsByCourtAvailable[0]);*/
   }
 
   getAllReservationsByLoggedUser() {
@@ -116,7 +116,7 @@ export class ReservaComponent implements OnInit {
   doReservation() {
     const dateFormat = new Date(this.mydate.date.year, this.mydate.date.month - 1, this.mydate.date.day);
 
-    dateFormat.setHours(parseInt(this.hourSelected));
+    dateFormat.setHours(this.hourSelected.substring(0, 2));
     this.reservation.doReservation(this.courtSelected.id, dateFormat.getTime()).subscribe(
       response => {
         if (response) {
@@ -199,9 +199,9 @@ export class ReservaComponent implements OnInit {
 
   selectHours(pista) {
     this.courtSelected = this.allReservationsByCourtAvailable[pista - 1];
-    if (this.courtSelected && this.courtSelected.hours) {
+    /*if (this.courtSelected && this.courtSelected.hours) {
       this.selectHour(this.courtSelected.hours[0]);
-    }
+    }*/
   }
 
   selectHour(hora) {
