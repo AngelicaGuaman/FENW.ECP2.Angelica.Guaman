@@ -9,7 +9,7 @@
           <label>Seleccione una fecha:<span class="text-danger">*</span></label>
           <my-date-picker name="model" [options]="myDatePickerOptions"
                           [(ngModel)]="mydate" required></my-date-picker>
-          <button class="btn btn-primary" (click)="getAllReservations()">Buscar</button>
+          <button class="btn btn-primary mt-md-4" (click)="getAllReservations()">Buscar</button>
         </fieldset>
       </form>
     </div>
@@ -120,7 +120,7 @@
           </select>
         </div>
 
-        <div>
+        <div class="mt-md-4">
           <div *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length > 0">
             <label>Hora: </label>
             <select name="hourSelected"
@@ -132,7 +132,7 @@
 
           <label *ngIf="courtSelected && courtSelected.hours && courtSelected.hours.length === 0" class="text-center text-danger"> No hay horas disponibles</label>
         </div>
-        <button class="btn btn-primary" (click)="doReservation()">Reservar</button>
+        <button class="btn btn-primary mt-md-4" (click)="doReservation()">Reservar</button>
       </fieldset>
 
     </div>
