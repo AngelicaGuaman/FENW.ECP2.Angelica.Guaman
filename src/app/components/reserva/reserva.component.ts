@@ -122,7 +122,7 @@ export class ReservaComponent implements OnInit {
         if (response) {
           this.getAllReservationsByLoggedUser();
           this.getAllReservations();
-          this.selectHours(this.allReservationsByCourtAvailable[0]);
+          /*this.selectHours(this.allReservationsByCourtAvailable[0]);*/
           this.toast.success('Se ha creado correctamente la reserva', 'Reserva');
         }
       }, error => {
@@ -190,7 +190,8 @@ export class ReservaComponent implements OnInit {
   }
 
   isUnavailable(c: Court) {
-    return c && c.hours && c.hours.length === 0;
+    /*console.log(c);*/
+    return c === undefined;
   }
 
   isAvailable(c: Court) {
