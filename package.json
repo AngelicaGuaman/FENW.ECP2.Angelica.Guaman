@@ -30,6 +30,7 @@
     "mydatepicker": "^2.6.8",
     "ngx-toastr": "^11.2.1",
     "rxjs": "~6.5.3",
+    "serialize-javascript": "^2.1.2",
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
